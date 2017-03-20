@@ -1,8 +1,8 @@
 <?php
 
-require_once './connDB.php';
+require_once 'connDB.php';
 
-class Book {
+class Book implements JsonSerializable {
 
     private $id, $name, $author, $description;
 
@@ -145,7 +145,7 @@ class Book {
             $query->execute([
                 'id' => $id,
                             ]);
-            $book = $query->fetch();
+            $book = $query->fetch(PDO::FETCH_ASSOC);
             
             $newBook = new Book();
             $newBook->id = $book['id'];
@@ -162,7 +162,21 @@ class Book {
         } else {
             return NULL;
         }
+        
     }
+    
+    public function jsonSerialize()
+    {
+        return [
+            "id" => $this->id,
+            "name" => $this->name,
+            "author" => $this->author,
+            "description" => $this->description,
+        ];
+    }
+    
+    
+    
 }
 
     
