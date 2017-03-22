@@ -1,3 +1,5 @@
+
+
 <?php
 
 require_once './src/connDB.php';
@@ -11,7 +13,6 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
         $book = new Book();
         $bookInfo = $book->loadFromDB($conn, $id);
         echo json_encode($bookInfo);
-
         
     } else {
         
@@ -27,7 +28,7 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
 
                 foreach ($idArray as $id) {
                     $book = new Book();
-                    $bookInfo[] = $book->loadTitleFromDB($conn, $id['id']);
+                    $bookInfo[] = $book->loadFromDB($conn, $id['id']);
                 }
                 echo json_encode($bookInfo);
             } else {
@@ -37,4 +38,35 @@ if ('GET' === $_SERVER['REQUEST_METHOD']) {
             $ex->getMessage();
         }
     }  
+}
+
+
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
+    if (isset($_POST['title'], $_POST['author'], $_POST['description'])) {
+        $title = $_POST['title'];
+        $author = $_POST['author'];
+        $desc = $_POST['description'];
+        
+        $book = new Book();
+        $result = $book->create($conn, $title, $author, $desc);
+        
+        if ($result !== false) {
+            echo json_encode("success");
+        }
+        
+    }
+}
+
+
+if ('DELETE' === $_SERVER['REQUEST_METHOD']) {
+    parse_str(file_get_contents("php://input"), $del_vars);
+    $id = $del_vars['id'];
+    
+    $book = new Book();
+    $book->loadFromDB($conn, $id);
+    $result = $book->deleteFromDB($conn);
+    
+    if ($result = true) {
+        echo json_encode("deleted");
+    }
 }

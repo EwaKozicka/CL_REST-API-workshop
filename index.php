@@ -22,13 +22,13 @@
                         <form action="" method="post" role="form">
                             <div class="form-group">
                                 <label for="title">Title:</label>
-                                <input type="text" class="form-control" name="title" placeholder="Name...">
+                                <input type="text" id ="title" class="form-control" name="title" placeholder="Name...">
                                 <label for="author">Author:</label>
-                                <input type="text" class="form-control" name="author" placeholder="Author...">
+                                <input type="text" id="author" class="form-control" name="author" placeholder="Author...">
                                 <label for="description">Description:</label>
-                                <input type="text" class="form-control" name="description" placeholder="Description...">
+                                <input type="text" id="desc" class="form-control" name="description" placeholder="Description...">
                             </div>
-                            <input type="submit" class="btn btn-md btn-secondary" value="Add book"></input>
+                            <input type="submit" id="submit" class="btn btn-md btn-secondary" value="Add book"></input>
 
                             <h2 class="lead">Your books:</h2>
                     </div>

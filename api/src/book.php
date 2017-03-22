@@ -78,10 +78,12 @@ class Book implements JsonSerializable {
                 ]);
 
                 $this->id = $conn->lastInsertId();
-
+                
                 return $this;
             } catch (PDOException $ex) {
                 $ex->getMessage();
+                
+                return false;
             }
         }
     }
@@ -122,6 +124,7 @@ class Book implements JsonSerializable {
                 $this->id = -1;
 
                 return true;
+                
             } catch (PDOException $ex) {
                 $ex->getMessage();
 
@@ -130,29 +133,29 @@ class Book implements JsonSerializable {
         } return true;
     }
 
-    function loadTitleFromDB($conn, $id) {
-        $sql = 'SELECT `name`, `id` FROM `Book` WHERE `id` = :id';
-        
-        try {
-            $query = $conn->prepare($sql);
-            $query->execute([
-                'id' => $id,
-            ]);
-            $book = $query->fetch(PDO::FETCH_ASSOC);
-
-            $newBook = new Book();
-            $newBook->id = $book['id'];
-            $newBook->name = $book['name'];
-        } catch (PDOException $ex) {
-            echo $ex->getMessage();
-        }
-
-        if ($book != null) {
-            return $newBook;
-        } else {
-            return NULL;
-        }
-    }
+//    function loadTitleFromDB($conn, $id) {
+//        $sql = 'SELECT `name`, `id` FROM `Book` WHERE `id` = :id';
+//        
+//        try {
+//            $query = $conn->prepare($sql);
+//            $query->execute([
+//                'id' => $id,
+//            ]);
+//            $book = $query->fetch(PDO::FETCH_ASSOC);
+//
+//            $newBook = new Book();
+//            $newBook->id = $book['id'];
+//            $newBook->name = $book['name'];
+//        } catch (PDOException $ex) {
+//            echo $ex->getMessage();
+//        }
+//
+//        if ($book != null) {
+//            return $newBook;
+//        } else {
+//            return NULL;
+//        }
+//    }
 
     function loadFromDB($conn, $id) {
 
@@ -164,18 +167,17 @@ class Book implements JsonSerializable {
                 'id' => $id,
             ]);
             $book = $query->fetch(PDO::FETCH_ASSOC);
-
-            $newBook = new Book();
-            $newBook->id = $book['id'];
-//            $newBook->name = $book['name'];
-            $newBook->author = $book['author'];
-            $newBook->description = $book['description'];
+            
+            $this->id = $book['id'];
+            $this->name = $book['name'];
+            $this->author = $book['author'];
+            $this->description = $book['description'];
         } catch (PDOException $ex) {
             echo $ex->getMessage();
         }
 
         if ($book != null) {
-            return $newBook;
+            return $this;
         } else {
             return NULL;
         }
