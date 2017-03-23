@@ -70,3 +70,22 @@ if ('DELETE' === $_SERVER['REQUEST_METHOD']) {
         echo json_encode("deleted");
     }
 }
+
+if ('PUT' === $_SERVER['REQUEST_METHOD']) {
+    parse_str(file_get_contents("php://input"), $put_vars);
+    
+    var_dump($put_vars);
+    
+    $id = $put_vars['id'];
+    $author = $put_vars['author'];
+    $description = $put_vars['description'];
+    
+    $book = new Book();
+    $book->loadFromDB($conn, $id);
+    $name = $book->getName();
+    $result = $book->update($conn, $name, $author, $description);
+    
+    if ($result != false) {
+        echo json_encode("updated");
+    }
+}

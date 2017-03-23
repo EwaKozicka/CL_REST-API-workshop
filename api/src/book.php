@@ -90,15 +90,20 @@ class Book implements JsonSerializable {
 
     function update($conn, $name, $author, $description) {
         if ($this->getId() > -1) {
-
-            $sql = "UPDATE `Book` SET `name` = :name, `author` = :author, `description` = description WHERE `id` = :id;";
-
+           
+            $sql = "UPDATE `Book` SET `name` = :name, `author` = :author, `description` = :description WHERE `id` = :id;";
+            
+            $this->setAuthor($author);
+            $verifiedAuthor = $this->getAuthor();
+            $this->setDescription($description);
+            $verifiedDescription = $this->getDescription();
+            
             try {
                 $query = $conn->prepare($sql);
                 $result = $query->execute([
-                    'name' => $name,
-                    'author' => $author,
-                    'description' => $description,
+                    'name' => $this->getName(),
+                    'author' => $verifiedAuthor,
+                    'description' => $verifiedDescription,
                     'id' => $this->getId(),
                 ]);
 
@@ -110,6 +115,8 @@ class Book implements JsonSerializable {
             }
         }
     }
+    
+     
 
     function deleteFromDB($conn) {
         if ($this->getId() !== -1) {
@@ -133,29 +140,6 @@ class Book implements JsonSerializable {
         } return true;
     }
 
-//    function loadTitleFromDB($conn, $id) {
-//        $sql = 'SELECT `name`, `id` FROM `Book` WHERE `id` = :id';
-//        
-//        try {
-//            $query = $conn->prepare($sql);
-//            $query->execute([
-//                'id' => $id,
-//            ]);
-//            $book = $query->fetch(PDO::FETCH_ASSOC);
-//
-//            $newBook = new Book();
-//            $newBook->id = $book['id'];
-//            $newBook->name = $book['name'];
-//        } catch (PDOException $ex) {
-//            echo $ex->getMessage();
-//        }
-//
-//        if ($book != null) {
-//            return $newBook;
-//        } else {
-//            return NULL;
-//        }
-//    }
 
     function loadFromDB($conn, $id) {
 
