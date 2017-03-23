@@ -58,7 +58,7 @@ class Book implements JsonSerializable {
     }
 
     function create($conn, $name, $author, $description) {
-        if ($this->getId() == -1) {
+        if ($this->getId() == -1 && !empty($name) && !empty($author) && !empty($description)) {
 
             $this->setName($name);
             $nameToAdd = $this->getName();
@@ -85,6 +85,8 @@ class Book implements JsonSerializable {
                 
                 return false;
             }
+        } else {
+            return null;
         }
     }
 

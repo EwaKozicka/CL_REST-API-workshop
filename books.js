@@ -27,7 +27,7 @@ $(function () {
                     $.getJSON("./api/books.php?id=1", {id: div.attr("data-id")}, function (response) {
                         div2.html("");
                         var i1 = $('<p>Author: <input class="input" type="text" value="' + response.author + '"></p>');
-                        var i2 = $('<p>Description: <textarea class="input" rows="4">' + response.description + '</textarea></p>');
+                        var i2 = $('<p>Description: <textarea class="input" rows="3">' + response.description + '</textarea></p>');
                         div.parent().next().toggleClass("hide");
 
                         i1.appendTo(div2);
@@ -104,6 +104,8 @@ $(function () {
                             author.val("");
                             description.val("");
                             alert("book added");
+                        } else if (response == "empty") {
+                            alert("fill out all the fields");
                         }
                     })
                     .fail(function () {

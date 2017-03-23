@@ -1,12 +1,19 @@
 
 /* Custom default button */
 .btn-secondary,
-.btn-secondary:hover,
 .btn-secondary:focus {
   color: #555;
   text-shadow: none;
   background-color: #ddd;
   border: .05rem solid #ddd;
+  border-radius: 15px;
+}
+
+.btn-secondary:hover {
+  color: #555;
+  text-shadow: none;
+  background-color: #bbb;
+  border: .05rem solid #bbb;
   border-radius: 15px;
 }
 
@@ -87,19 +94,6 @@ textarea {
     color: #555;
 }
 
-@media (min-width: 40em) {
-  .cover-container {
-    width: 100%;
-  }
-}
-
-@media (min-width: 62em) {
-  .cover-container {
-    width: 42rem;
-  }
-}
-
-
 .hide {
     display: none;
 }
@@ -107,4 +101,38 @@ textarea {
 .cover-heading {
     font-size: 2em;
     text-decoration: underline;
+}
+
+.control-label, .form-horizontal {
+    margin: 5px;
+    text-align: left;
+}
+
+.form-group {
+    text-align: center;
+    width: 104%;
+}
+
+.field {
+    display: block;
+}
+
+@media (min-width: 40em) {
+  .cover-container {
+    width: 100%;
+  }
+  .form-group {
+    text-align: center;
+    width: 104%;
+}
+}
+
+@media (min-width: 62em) {
+  .cover-container {
+    width: 42rem;
+  }
+  .form-group {
+    text-align: right;
+    width: 104%;
+  }
 }

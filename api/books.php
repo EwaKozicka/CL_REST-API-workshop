@@ -50,10 +50,11 @@ if ('POST' === $_SERVER['REQUEST_METHOD']) {
         $book = new Book();
         $result = $book->create($conn, $title, $author, $desc);
         
-        if ($result !== false) {
+        if ($result === null) {
+            echo json_encode("empty");
+        } else if ($result !== false) {
             echo json_encode("success");
         }
-        
     }
 }
 
