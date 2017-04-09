@@ -38,7 +38,6 @@ $(function () {
                 bookDelete.click(function () {
 
                     var id = $(this).prev().attr("data-id");
-                    //nie wiem, jak inaczej dostać się do tego elementu, próbowałam robić tę funkcję nie wewnątrz funkcji loadBook, jednak wtedy nie działa wybieranie elementów; wiem, że to rozwiązanie jest wrażliwe na zmiany pozycji elementów, ale na lepsze nie wpadłam
 
                     if (confirm("Are you sure you want to delete this book?")) {
                         $.ajax({
@@ -66,7 +65,6 @@ $(function () {
                         data: {id: id, author: author, description: desc},
                         type: "PUT"})
                             .done(function (response) {
-                                console.log(response);
                                 alert('book updated');
                                 loadBook();
                             })
