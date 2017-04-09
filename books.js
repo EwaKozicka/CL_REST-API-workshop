@@ -55,7 +55,6 @@ $(function () {
                     }
                 });
 
-
                 bookUpdate.click(function () {
                     var id = $(this).prev().prev().attr("data-id");
                     var author = $(this).parent().next().find("input").val();
@@ -72,12 +71,8 @@ $(function () {
                                 alert("Something went wrong, try again");
                             });
                 });
-
-
-
             });
         });
-
     }
 
     function addBook() {
@@ -109,11 +104,7 @@ $(function () {
                     .fail(function () {
                         alert("Something went wrong, try again");
                     });
-
         });
-
-
-
     };
 
     loadBook();
